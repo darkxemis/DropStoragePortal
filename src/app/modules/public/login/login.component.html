@@ -8,12 +8,17 @@
                 <div class="div-image-storage"></div>
                 <form>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="email" [ngModelOptions]="{standalone: true}" [(ngModel)]="userValue" (input)="OnChangeUser($event.target)" id="floatingInput" placeholder="name@example.com"
+                        [ngClass]="dirtyUserChange ? requiredUser ? 'form-control is-invalid' : 'form-control is-valid' : 'form-control' ">
                         <label for="floatingInput">Email address</label>
+                        <p *ngIf="dirtyUserChange && requiredUser" class="help-block text-danger"><small>* Fallo</small></p>
+
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="passwordValue" (input)="OnChangePassword($event.target)" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                        [ngClass]="dirtyPasswordChange ? requiredPassword ? 'form-control is-invalid' : 'form-control is-valid' : 'form-control' ">
                         <label for="floatingPassword">Password</label>
+                        <p *ngIf="dirtyPasswordChange && requiredPassword" class="help-block text-danger"><small>* Fallo</small></p>
                     </div>
     
                     <div class="form-check mb-3">
@@ -21,7 +26,7 @@
 
                     </div>
                     <div class="d-grid">
-                        <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
+                        <button (click)="login()" class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
                             in</button>
                     </div>
                     <hr class="my-4">

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { AppConfig } from './app.configuration';
 import { CoreModule } from './core/core.module';
 import { PublicModule } from './modules/public/public.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -19,7 +21,9 @@ export function initializeApp(appConfig: AppConfig) {
     BrowserModule,
     AppRoutingModule,
     PublicModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule,
+    //ToastrModule.forRoot()
   ],
   providers: [
     AppConfig,
