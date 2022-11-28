@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppConfig } from './app.configuration';
+import { CoreModule } from './core/core.module';
 import { PublicModule } from './modules/public/public.module';
 
+export function initializeApp(appConfig: AppConfig) {
+  return () => appConfig.load();
+}
 
 @NgModule({
   declarations: [
@@ -14,8 +19,17 @@ import { PublicModule } from './modules/public/public.module';
     BrowserModule,
     AppRoutingModule,
     PublicModule,
+    CoreModule
   ],
-  providers: [],
+  providers: [
+    AppConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppConfig],
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

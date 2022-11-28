@@ -1,0 +1,4 @@
+{
+    "webApi": { "url": "https://localhost:7048/api"},
+    "config": { "production": true, "hideConsole": true }
+}

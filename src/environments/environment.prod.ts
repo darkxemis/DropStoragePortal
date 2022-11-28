@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  name: "prod",
+  production: true,
+  dateFormat: 'dd/MM/yyyy HH:mm:ss'
 };
