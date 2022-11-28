@@ -7,7 +7,7 @@ import { AppConfig } from './app.configuration';
 import { CoreModule } from './core/core.module';
 import { PublicModule } from './modules/public/public.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ToastrModule } from 'ngx-toastr';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -23,7 +23,7 @@ export function initializeApp(appConfig: AppConfig) {
     PublicModule,
     CoreModule,
     BrowserAnimationsModule,
-    //ToastrModule.forRoot()
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     AppConfig,

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Access } from 'src/app/core/models/access.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { LoginFormValidation } from 'src/app/logic/models/validations-model/LoginFormValidation.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login',
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public titleService: Title,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ){}
 
   public async ngOnInit(): Promise<void> {
@@ -53,15 +55,13 @@ export class LoginComponent implements OnInit {
         };
   
         await this.userService.attemptAuth(access);
-  
-        //await this.toastr.success(mensajeLoginSuccess);
         
         console.log("Todo ok");
-        //this.toastr.success("Algo", "Algo titutlo");
+        this.toastr.success("Algo", "Algo titutlo");
   
       } catch (error) {
         if (error && error.message) {
-          //this.toastr.error(error.message, "Algo error titulo");
+          this.toastr.error(error.message, "Algo error titulo");
         }
       }
     }
