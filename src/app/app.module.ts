@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PublicModule } from './modules/public/public.module';
 
+
 @NgModule({
   declarations: [
     AppComponent

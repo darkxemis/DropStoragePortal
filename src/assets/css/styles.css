@@ -1,0 +1,29 @@
+
+/* Login */
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}
+
+.btn-google {
+    color: white !important;
+    background-color: #ea4335 !important;
+}
+
+.btn-facebook {
+    color: white !important;
+    background-color: #3b5998 !important;
+}
+
+.div-background {
+    height: 100vh;
+    background-image: url('../img/image-drop.jpg');
+}
+
+.div-image-storage {
+    height: 200px;
+    width: 350px;
+    background-image: url('../img/drop-storage-logo.png');
+    background-size: 350px 200px;
+}
