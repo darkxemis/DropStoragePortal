@@ -5,6 +5,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { LoginFormValidation } from 'src/app/logic/models/validations-model/LoginFormValidation.model';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/core/services/loader.service';
+import { TokenParsed } from 'src/app/core/models/tokenParse.model';
 
 @Component({
   selector: 'login',
@@ -59,12 +60,13 @@ export class LoginComponent implements OnInit {
         };
   
         await this.userService.attemptAuth(access);
-        
-        this.toastr.success("Algo", "Algo titutlo");
+        const tokenParsed: TokenParsed = this.userService.getCurrentTokenParse();
+
+        this.toastr.success(`Welcome to dropstorage: ${tokenParsed.name}`, "Login success");
   
       } catch (error) {
         if (error && error.message) {
-          this.toastr.error(error.message, "Algo error titulo");
+          this.toastr.error(error.message, "Error");
         }
       }
     }

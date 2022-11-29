@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { TokenParsed } from "../models/tokenParse.model";
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +28,7 @@ export class LocalStorageService {
     public getTokenParsed(): TokenParsed {
         try
         {
+
             return this.decodeToken();
         }
         catch
@@ -100,6 +102,7 @@ export class LocalStorageService {
     private decodeToken() : TokenParsed {
         try {
             const decode: any = jwt_decode(this.getToken());
+            console.log(decode);
             let str;
             const newObj = {} as any;
             for (let prop in decode) {
@@ -117,8 +120,4 @@ export class LocalStorageService {
             return null
         }
     }
-}
-
-function jwt_decode(arg0: string): any {
-    throw new Error("Function not implemented.");
 }
