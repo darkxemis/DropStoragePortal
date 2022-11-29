@@ -8,6 +8,7 @@ import { ApiService } from "./services/api.service";
 import { LocalStorageService } from "./services/local-storage.service";
 import { UserService } from "./services/user.service";
 import { AuthGuardService } from "./services/auth-guard.service";
+import { LoaderService } from "./services/loader.service";
 
 @NgModule({
     imports: [
@@ -20,8 +21,8 @@ import { AuthGuardService } from "./services/auth-guard.service";
         ApiService,
         AuthGuardService,
         LocalStorageService,
-        UserService
-        //LoaderService
+        UserService,
+        LoaderService
     ]
 })
 export class CoreModule { 

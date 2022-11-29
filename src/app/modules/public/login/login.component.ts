@@ -4,6 +4,7 @@ import { Access } from 'src/app/core/models/access.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { LoginFormValidation } from 'src/app/logic/models/validations-model/LoginFormValidation.model';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Component({
   selector: 'login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public titleService: Title,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loaderService: LoaderService,
   ){}
 
   public async ngOnInit(): Promise<void> {
@@ -45,6 +47,8 @@ export class LoginComponent implements OnInit {
   }
 
   public async login(): Promise<void> {
+    this.loaderService.show();
+
     this.SetDirtyFields(true);
 
     if(this.IsValidForm()) {
@@ -56,7 +60,6 @@ export class LoginComponent implements OnInit {
   
         await this.userService.attemptAuth(access);
         
-        console.log("Todo ok");
         this.toastr.success("Algo", "Algo titutlo");
   
       } catch (error) {
@@ -65,6 +68,7 @@ export class LoginComponent implements OnInit {
         }
       }
     }
+    this.loaderService.hide();
   }
 
   public OnChangePassword(value): void {

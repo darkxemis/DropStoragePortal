@@ -11,7 +11,7 @@ import { ResetPasswordEmailComponent } from "./reset-password-email/reset-passwo
     imports: [
         CommonModule,
         FormsModule,
-        PublicRoutingModule,
+        PublicRoutingModule
     ],
     declarations: [
         PublicComponent,

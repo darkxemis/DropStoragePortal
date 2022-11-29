@@ -26,3 +26,128 @@
     background-image: url('../img/drop-storage-logo.png');
     background-size: 350px 200px;
 }
+
+/* loader - Spinner */
+@-webkit-keyframes spinner-border {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spinner-border {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border 0.75s linear infinite;
+    animation: spinner-border 0.25s linear infinite;
+  }
+  
+  .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+  }
+  
+  @-webkit-keyframes spinner-grow {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes spinner-grow {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  .spinner-grow {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-animation: spinner-grow 0.75s linear infinite;
+    animation: spinner-grow 0.25s linear infinite;
+  }
+  
+  .spinner-grow-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  #overlaySpinner {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/stripes-light.png");
+    opacity: .8;
+    z-index: 1060;
+    cursor: progress;
+  }
+  
+  .contentSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+  
+  .spinner-grow {
+    border: 12px solid #040505;
+    border-top: 12px solid #0056b3;
+    border-radius: 50%;
+    opacity: 1;
+    width: 125px;
+    height: 125px;
+    background-color: transparent;
+    animation: spin 2s alternate infinite;
+  }
+  
+  @keyframes spin {
+    50% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+    from {
+      width: 125px;
+      height: 125px;
+      opacity: .2;
+      background-color: #0063BE
+    }
+    to {
+      width: 23px;
+      height: 23px;
+      opacity: 1;
+      background-color: transparent;
+    }
+  }
