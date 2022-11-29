@@ -1,4 +1,4 @@
 {
-    "webApi": { "url": "https://localhost:7048/api"},
+    "webApi": { "url": "https://dropstorageapi.ignorelist.com/api"},
     "config": { "production": true, "hideConsole": true }
 }
