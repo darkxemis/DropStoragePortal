@@ -102,7 +102,6 @@ export class LocalStorageService {
     private decodeToken() : TokenParsed {
         try {
             const decode: any = jwt_decode(this.getToken());
-            console.log(decode);
             let str;
             const newObj = {} as any;
             for (let prop in decode) {

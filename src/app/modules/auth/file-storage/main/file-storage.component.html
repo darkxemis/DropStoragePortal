@@ -1,0 +1,11 @@
+
+<div *ngFor="let file of fileStorageList; let i = index" [attr.data-index]="i">
+    <div (click)="ClickCheckBoxDowloadFile(file)">
+        <input class="form-check-input" [(ngModel)]="file.checked" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+        {{file.name}}
+    </div>
+</div>
+
+<div>
+    <button [disabled]="disableButtomDowload" (click)="Download()" type="button" class="btn btn-primary">Primary</button>
+</div>

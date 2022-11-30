@@ -6,6 +6,10 @@ import { LoginFormValidation } from 'src/app/logic/models/validations-model/Logi
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { TokenParsed } from 'src/app/core/models/tokenParse.model';
+import { FileStorageApiService } from 'src/app/logic/api-services/FileStorageApiService';
+import * as moment from 'moment';
+import { Guid } from 'guid-typescript';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -37,6 +41,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private loaderService: LoaderService,
+    private router: Router, 
   ){}
 
   public async ngOnInit(): Promise<void> {
@@ -63,7 +68,8 @@ export class LoginComponent implements OnInit {
         const tokenParsed: TokenParsed = this.userService.getCurrentTokenParse();
 
         this.toastr.success(`Welcome to dropstorage: ${tokenParsed.name}`, "Login success");
-  
+        await this.router.navigate(['/auth/file-storage']);
+
       } catch (error) {
         if (error && error.message) {
           this.toastr.error(error.message, "Error");

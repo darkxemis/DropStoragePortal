@@ -9,6 +9,8 @@ import { PublicModule } from './modules/public/public.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
+import { LogicModule } from './logic/logic.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -22,8 +24,10 @@ export function initializeApp(appConfig: AppConfig) {
     BrowserModule,
     AppRoutingModule,
     PublicModule,
+    AuthModule,
     CoreModule,
     SharedModule,
+    LogicModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],

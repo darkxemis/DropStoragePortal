@@ -136,4 +136,16 @@ export class ApiService {
     }
     return result;
   }
+  
+  public async getFile(path: string, body: object = {}): Promise<any> {
+    //const parameters: HttpParams = this.createHttpParams(params);
+    return await this.http.post(`${AppConfig.settings.webApi.url}${path}`, this.stringify(body),
+        {
+          headers: this.jsonHeaders(),
+          //params: parameters,
+         
+          responseType: 'blob'
+        })
+      .pipe(catchError(this.formatErrors)).toPromise();
+  }
 }
