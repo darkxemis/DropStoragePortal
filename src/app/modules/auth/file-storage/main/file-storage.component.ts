@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from 'src/app/core/services/loader.service';
 import { FileStorageApiService } from 'src/app/logic/api-services/FileStorageApiService';
 import { GetFileStorage } from 'src/app/logic/models/file-storage/file-storage-get';
 
@@ -17,6 +18,7 @@ export class FileStorageComponent implements OnInit {
     public titleService: Title,
     private fileStorageApiService: FileStorageApiService,
     private toastr: ToastrService,
+    private loaderService: LoaderService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -38,12 +40,15 @@ export class FileStorageComponent implements OnInit {
   public async Download(): Promise<void> {
     let idFilesSelected = this.fileStorageList.filter(x => x.checked == true).map(x => x.id.toString());
     
+    this.loaderService.show();
     try {
       await this.DownloadFiles(idFilesSelected);
     } catch(error) {
       this.toastr.error("Error to download files", "Error");
     }
-    
+
+    this.loaderService.hide();
+
     await this.InitFiles();
 
     this.toastr.success("Download success", "Download");
@@ -67,10 +72,13 @@ export class FileStorageComponent implements OnInit {
 
   private async InitFiles(): Promise<void> {
     this.disableButtomDowload = true;
+
+    this.loaderService.show();
     try {
       this.fileStorageList = await this.fileStorageApiService.GetAllFilesByUserId("EEDC4753-3F88-4A48-8A9B-AA59E5337B83");
     } catch(error) {
       this.toastr.error("Error to load files", "Error");
     } 
+    this.loaderService.hide();
   }
 }
