@@ -2,8 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/core/models/user.model';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { FileStorageApiService } from 'src/app/logic/api-services/FileStorageApiService';
+import { UserApiService } from 'src/app/logic/api-services/UserApiService';
 import { GetFileStorage } from 'src/app/logic/models/file-storage/file-storage-get';
 
 @Component({
@@ -19,6 +21,7 @@ export class FileStorageComponent implements OnInit {
     private fileStorageApiService: FileStorageApiService,
     private toastr: ToastrService,
     private loaderService: LoaderService,
+    private userApiService: UserApiService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -75,7 +78,8 @@ export class FileStorageComponent implements OnInit {
 
     this.loaderService.show();
     try {
-      this.fileStorageList = await this.fileStorageApiService.GetAllFilesByUserId("EEDC4753-3F88-4A48-8A9B-AA59E5337B83");
+      let user: User = await this.userApiService.GetUserByUserName();
+      this.fileStorageList = await this.fileStorageApiService.GetAllFilesByUserId(user.id);
     } catch(error) {
       this.toastr.error("Error to load files", "Error");
     } 

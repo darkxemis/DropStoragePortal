@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { throwIfAlreadyLoaded } from "../core/guards/module-import.guard";
 import { FileStorageApiService } from "./api-services/FileStorageApiService";
+import { UserApiService } from "./api-services/UserApiService";
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import { FileStorageApiService } from "./api-services/FileStorageApiService";
         HttpClientModule
     ],
     providers: [
-        FileStorageApiService
+        FileStorageApiService,
+        UserApiService
     ]
 })
 export class LogicModule { 

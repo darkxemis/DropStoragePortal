@@ -1,7 +1,6 @@
 import { ApiService } from "src/app/core/services/api.service";
 import { ApiConstants } from "../constants/api.constants";
 import { Injectable } from "@angular/core";
-import { Guid } from "guid-typescript";
 import { GetFileStorage } from "../models/file-storage/file-storage-get";
 
 @Injectable()
