@@ -18,6 +18,11 @@ export class FileStorageComponent implements OnInit {
   fileStorageList: GetFileStorage[] = [];
   disableButtomDowload: boolean;
 
+  extensionFileAllowed = `apng, avif, gif, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp, 
+  MP4, MOV, WMV, AVI, FLV, MKV, AVCHD, WEBM
+  doc, docx, odt, pdf, rtf, tex, txt, wpd, xlsx, xlsm, xlsb, xltx, xltm, xls, xlt, xls, xml, xml, xlam, xla, xlw, xlr, json
+  M4A, FLAC, MP3, WAV, WMA, AAC`
+
   //Upload
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   files: any[] = [];
@@ -70,21 +75,23 @@ export class FileStorageComponent implements OnInit {
     this.isAllFilesUploaded = false;
     let isError = false;
 
-    for (const file of this.files) {
-      try {
-        await this.fileStorageApiService.UploadFile(file);
-      } catch(error) {
-        isError = true;
-        this.toastr.error(error.message, `Error to upload file: ${file.name}`);
+    if(this.IsValidFiles()) {
+      for (const file of this.files) {
+        try {
+          //await this.fileStorageApiService.UploadFile(file);
+        } catch(error) {
+          isError = true;
+          this.toastr.error(error.message, `Error to upload file: ${file.name}`);
+        }
       }
+  
+      this.files = [];
+      if(!isError){
+        this.toastr.success("Files upload success", "Upload");
+      }
+  
+      await this.InitFiles();
     }
-
-    this.files = [];
-    if(!isError){
-      this.toastr.success("Files upload success", "Upload");
-    }
-
-    await this.InitFiles();
   }
 
   public onFileDropped($event) {
@@ -127,7 +134,9 @@ export class FileStorageComponent implements OnInit {
   public prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
-      this.files.push(item);
+      if(this.files.filter(x => x.name == item.name).length == 0){
+        this.files.push(item);
+      }
     }
     this.fileDropEl.nativeElement.value = "";
     this.uploadFilesSimulator(0);
@@ -142,6 +151,17 @@ export class FileStorageComponent implements OnInit {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+  private IsValidFiles(): boolean {
+    const fileNotAllowed = this.files.filter(x => !this.extensionFileAllowed.toLowerCase().includes(x.name.substr(x.name.lastIndexOf('.') + 1).toLowerCase()));
+
+    if(fileNotAllowed.length > 0) {
+      fileNotAllowed.forEach(x => this.toastr.error(`You can't use file with extension: ${x.name.substr(x.name.lastIndexOf('.') + 1)}`, `Error in file ${x.name}`));
+      return false;
+    }
+
+    return true;
   }
 
   //End upload
