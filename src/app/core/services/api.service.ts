@@ -148,4 +148,12 @@ export class ApiService {
         })
       .pipe(catchError(this.formatErrors)).toPromise();
   }
+
+  async uploadFile(path: string, file: any) : Promise<any>{
+    const formData = new FormData();
+    const fileToUpload = file as File;
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return await this.http.post(`${AppConfig.settings.webApi.url}${path}`, formData).pipe(catchError(this.formatErrors)).toPromise();
+  }
+  
 }

@@ -9,3 +9,29 @@
 <div>
     <button [disabled]="disableButtomDowload" (click)="Download()" type="button" class="btn btn-primary">Primary</button>
 </div>
+
+<div class="containerFile" appDnd (fileDropped)="onFileDropped($event)">
+    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
+    <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+    <h3>Drag and drop file here</h3>
+    <label for="fileDropRef">Browse for file</label>
+</div>
+<div class="files-list">
+    <div class="single-file" *ngFor="let file of files; let i = index">
+        <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+        <div class="info">
+        <h4 class="name">
+            {{ file?.name }}
+        </h4>
+        <p class="size">
+            {{ formatBytes(file?.size) }}
+        </p>
+        <app-progress [progress]="file?.progress"></app-progress>
+        </div>
+        <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+    </div>
+</div>
+
+<div class="containerButton">
+    <button [disabled]="!isAllFilesUploaded" (click)="Upload()" type="button" class="btn btn-primary">Upload files</button>
+</div>

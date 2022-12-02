@@ -12,4 +12,5 @@ export class ApiConstants {
     //FileStorage
     public static pathGetAllFiles: string = '/auth/getallfiles';
     public static pathDownloadFile: string = '/auth/downloadfile';
+    public static pathUploadFile: string = '/auth/uploadfiles';
 }
