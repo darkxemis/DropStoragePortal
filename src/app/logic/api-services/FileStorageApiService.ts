@@ -20,4 +20,8 @@ export class FileStorageApiService {
     public async UploadFile(file: any): Promise<Blob> {
         return await this.apiService.uploadFile(ApiConstants.pathUploadFile, file);
     }
+
+    public async GetImg(ids: string[]): Promise<Blob> {
+        return await this.apiService.getFile(ApiConstants.pathGetImg, ids);
+    }
 }

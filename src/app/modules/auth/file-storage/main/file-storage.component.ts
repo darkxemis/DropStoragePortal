@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/core/models/user.model';
@@ -37,34 +37,8 @@ export class FileStorageComponent implements OnInit {
     private toastr: ToastrService,
     private loaderService: LoaderService,
     private userApiService: UserApiService,
+    private sanitizer: DomSanitizer
   ) {}
-
-  items = [
-    {id: 1, name: 'Item 1'},
-    {id: 2, name: 'Item 2'},
-    {id: 3, name: 'Item 3'}
-  ];
-
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-
-  contextMenuPosition = { x: '0px', y: '0px' };
-
-  onContextMenu(event: MouseEvent) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.menu.focusFirstItem('mouse');
-    this.contextMenu.openMenu();
-  }
-
-  onContextMenuAction1(item: Item) {
-    alert(`Click on Action 1 for ${item.name}`);
-  }
-
-  onContextMenuAction2(item: Item) {
-    alert(`Click on Action 2 for ${item.name}`);
-  }
 
   async ngOnInit(): Promise<void> {
     this.titleService.setTitle('File storage');
@@ -221,14 +195,26 @@ export class FileStorageComponent implements OnInit {
     try {
       let user: User = await this.userApiService.GetUserByUserName();
       this.fileStorageList = await this.fileStorageApiService.GetAllFilesByUserId(user.id);
+      await this.loadImg();
     } catch(error) {
       this.toastr.error("Error to load files", "Error");
     } 
     this.loaderService.hide();
   }
-}
 
-export interface Item {
-  id: number;
-  name: string;
+  readonly imagesTypes: string = "apng, avif, gif, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp";
+  readonly MusicTypes: string = "m4a, flac, mp3, wav, wma, aac";
+
+  private async loadImg(): Promise<void> {
+    this.fileStorageList.forEach(async (file) => {
+      if (this.imagesTypes.toLowerCase().includes(file.extension.replace(".", "").toLowerCase())) {
+        const blob = new Blob([await this.fileStorageApiService.GetImg([file.id.toString()])]);
+        file.urlImg = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob))
+      } else if (this.MusicTypes.toLowerCase().includes(file.extension.replace(".", "").toLowerCase())){
+        file.urlImg = "../../../../../assets/img/music-file.png";
+      } else{
+        file.urlImg = "../../../../../assets/img/file-document.png";
+      }
+    });
+  }
 }
