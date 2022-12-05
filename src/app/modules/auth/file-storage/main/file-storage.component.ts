@@ -17,7 +17,7 @@ import { GetFileStorage } from 'src/app/logic/models/file-storage/file-storage-g
 })
 export class FileStorageComponent implements OnInit {
   fileStorageList: GetFileStorage[] = [];
-  disableButtomDowload: boolean;
+  disableButtomDownload: boolean;
 
   menuTopLeftPosition =  {x: '0', y: '0'} 
 
@@ -39,19 +39,31 @@ export class FileStorageComponent implements OnInit {
     private userApiService: UserApiService,
   ) {}
 
-  contextmenu = false;
-  contextmenuX = 0;
-  contextmenuY = 0;
+  items = [
+    {id: 1, name: 'Item 1'},
+    {id: 2, name: 'Item 2'},
+    {id: 3, name: 'Item 3'}
+  ];
 
-  //activates the menu with the coordinates
-  onRightClick(event){
-      this.contextmenuX=event.clientX
-      this.contextmenuY=event.clientY
-      this.contextmenu=true;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+
+  contextMenuPosition = { x: '0px', y: '0px' };
+
+  onContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
   }
-  //disables the menu
-  disableContextMenu(){
-     this.contextmenu= false;
+
+  onContextMenuAction1(item: Item) {
+    alert(`Click on Action 1 for ${item.name}`);
+  }
+
+  onContextMenuAction2(item: Item) {
+    alert(`Click on Action 2 for ${item.name}`);
   }
 
   async ngOnInit(): Promise<void> {
@@ -68,7 +80,7 @@ export class FileStorageComponent implements OnInit {
     file.checked = !file.checked;
 
     // Desabilitamos el boton si no hay ninguno clicado
-    this.disableButtomDowload = !this.fileStorageList.some(file => file.checked === true);
+    this.disableButtomDownload = !this.fileStorageList.some(file => file.checked === true);
   }
 
   public async Download(): Promise<void> {
@@ -127,6 +139,8 @@ export class FileStorageComponent implements OnInit {
       return;
     }
     this.files.splice(index, 1);
+
+    this.isAllFilesUploaded = this.files.length > 0;
   }
 
   public uploadFilesSimulator(index: number) {
@@ -201,7 +215,7 @@ export class FileStorageComponent implements OnInit {
   }
 
   private async InitFiles(): Promise<void> {
-    this.disableButtomDowload = true;
+    this.disableButtomDownload = true;
 
     this.loaderService.show();
     try {
@@ -212,4 +226,9 @@ export class FileStorageComponent implements OnInit {
     } 
     this.loaderService.hide();
   }
+}
+
+export interface Item {
+  id: number;
+  name: string;
 }

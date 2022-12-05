@@ -9,21 +9,16 @@
                         <p style="margin-left: 15px;">{{file.name}}</p>
                     </div>
                 </div>
-                </div>
-        
-            <!--<div (click)="ClickCheckBoxDowloadFile(file)">
-                <input class="form-check-input" [(ngModel)]="file.checked" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                {{file.name}}
-            </div>-->
+            </div>
         </div>
-    </div>
-
-    <div>
-        <button [disabled]="disableButtomDowload" (click)="Download()" type="button" class="btn btn-primary cursor-pointer">Primary</button>
     </div>
 </div>
 
 <div class="fixed-content">
+    <div *ngIf="!disableButtomDownload" class="download-files-container" (click)="Download()">
+        <h3>Download your files by clicking here</h3>
+        <label class="label-download cursor-pointer">Download files</label>
+    </div>
     <div class="containerFile" appDnd (fileDropped)="onFileDropped($event)">
         <input class="cursor-pointer" type="file" accept="audio/*, video/*, image/*, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
         <img class="cursor-pointer" src="assets/img/dnd/ic-upload-file.svg" alt="">
@@ -45,8 +40,7 @@
             <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
         </div>
     </div>
-    
-    <div class="containerButton">
-        <button [disabled]="!isAllFilesUploaded" (click)="Upload()" type="button" class="btn btn-primary cursor-pointer">Upload files</button>
+    <div *ngIf="isAllFilesUploaded" class="containerButton">
+        <label class="label-download cursor-pointer" (click)="Upload()">Upload files</label>
     </div>
 </div>
