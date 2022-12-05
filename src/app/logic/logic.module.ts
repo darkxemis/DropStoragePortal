@@ -8,7 +8,7 @@ import { UserApiService } from "./api-services/UserApiService";
 @NgModule({
     imports: [
         CommonModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     providers: [
         FileStorageApiService,

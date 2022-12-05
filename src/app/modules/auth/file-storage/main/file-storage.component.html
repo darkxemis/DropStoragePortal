@@ -1,37 +1,52 @@
-
-<div *ngFor="let file of fileStorageList; let i = index" [attr.data-index]="i">
-    <div (click)="ClickCheckBoxDowloadFile(file)">
-        <input class="form-check-input" [(ngModel)]="file.checked" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-        {{file.name}}
-    </div>
-</div>
-
-<div>
-    <button [disabled]="disableButtomDowload" (click)="Download()" type="button" class="btn btn-primary">Primary</button>
-</div>
-
-<div class="containerFile" appDnd (fileDropped)="onFileDropped($event)">
-    <input type="file" accept="audio/*, video/*, image/*, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
-    <img src="assets/img/dnd/ic-upload-file.svg" alt="">
-    <h3>Drag and drop file here</h3>
-    <label for="fileDropRef">Browse for file</label>
-</div>
-<div class="files-list">
-    <div class="single-file" *ngFor="let file of files; let i = index">
-        <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
-        <div class="info">
-        <h4 class="name">
-            {{ file?.name }}
-        </h4>
-        <p class="size">
-            {{ formatBytes(file?.size) }}
-        </p>
-        <app-progress [progress]="file?.progress"></app-progress>
+<div class="container-main">
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let file of fileStorageList; let i = index" [attr.data-index]="i" class="col-md-3" (click)="ClickCheckBoxDowloadFile(file)">
+                <div class="thumbnail file" [ngClass]="file.checked ? 'file-selected' : ''" >
+                    <img src="../../../../../assets/img/drop-storage-logo.png" alt="Fjords" style="width:100%">
+                    <div class="caption">
+                        <input class="form-check-input " [(ngModel)]="file.checked" type="hidden" id="checkboxNoLabel" value="" aria-label="...">
+                        <p style="margin-left: 15px;">{{file.name}}</p>
+                    </div>
+                </div>
+                </div>
+        
+            <!--<div (click)="ClickCheckBoxDowloadFile(file)">
+                <input class="form-check-input" [(ngModel)]="file.checked" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                {{file.name}}
+            </div>-->
         </div>
-        <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+    </div>
+
+    <div>
+        <button [disabled]="disableButtomDowload" (click)="Download()" type="button" class="btn btn-primary cursor-pointer">Primary</button>
     </div>
 </div>
 
-<div class="containerButton">
-    <button [disabled]="!isAllFilesUploaded" (click)="Upload()" type="button" class="btn btn-primary">Upload files</button>
+<div class="fixed-content">
+    <div class="containerFile" appDnd (fileDropped)="onFileDropped($event)">
+        <input class="cursor-pointer" type="file" accept="audio/*, video/*, image/*, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
+        <img class="cursor-pointer" src="assets/img/dnd/ic-upload-file.svg" alt="">
+        <h3>Drag and drop file here</h3>
+        <label for="fileDropRef">Browse for file</label>
+    </div>
+    <div class="files-list">
+        <div class="single-file" *ngFor="let file of files; let i = index">
+            <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+            <div class="info">
+            <h4 class="name">
+                {{ file?.name }}
+            </h4>
+            <p class="size">
+                {{ formatBytes(file?.size) }}
+            </p>
+            <app-progress [progress]="file?.progress"></app-progress>
+            </div>
+            <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+        </div>
+    </div>
+    
+    <div class="containerButton">
+        <button [disabled]="!isAllFilesUploaded" (click)="Upload()" type="button" class="btn btn-primary cursor-pointer">Upload files</button>
+    </div>
 </div>

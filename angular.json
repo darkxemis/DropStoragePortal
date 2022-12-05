@@ -27,7 +27,6 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/assets/css/styles.css",
               "node_modules/ngx-toastr/toastr.css"
-
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -100,11 +99,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "9fff2469-0cf8-45e0-930b-80a7b080ceac"
+    "analytics": "9fff2469-0cf8-45e0-930b-80a7b080ceac",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +19,8 @@ export class FileStorageComponent implements OnInit {
   fileStorageList: GetFileStorage[] = [];
   disableButtomDowload: boolean;
 
+  menuTopLeftPosition =  {x: '0', y: '0'} 
+
   extensionFileAllowed = `apng, avif, gif, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp, 
   MP4, MOV, WMV, AVI, FLV, MKV, AVCHD, WEBM
   doc, docx, odt, pdf, rtf, tex, txt, wpd, xlsx, xlsm, xlsb, xltx, xltm, xls, xlt, xls, xml, xml, xlam, xla, xlw, xlr, json
@@ -35,6 +38,21 @@ export class FileStorageComponent implements OnInit {
     private loaderService: LoaderService,
     private userApiService: UserApiService,
   ) {}
+
+  contextmenu = false;
+  contextmenuX = 0;
+  contextmenuY = 0;
+
+  //activates the menu with the coordinates
+  onRightClick(event){
+      this.contextmenuX=event.clientX
+      this.contextmenuY=event.clientY
+      this.contextmenu=true;
+  }
+  //disables the menu
+  disableContextMenu(){
+     this.contextmenu= false;
+  }
 
   async ngOnInit(): Promise<void> {
     this.titleService.setTitle('File storage');
@@ -78,7 +96,7 @@ export class FileStorageComponent implements OnInit {
     if(this.IsValidFiles()) {
       for (const file of this.files) {
         try {
-          //await this.fileStorageApiService.UploadFile(file);
+          await this.fileStorageApiService.UploadFile(file);
         } catch(error) {
           isError = true;
           this.toastr.error(error.message, `Error to upload file: ${file.name}`);
