@@ -153,10 +153,10 @@
   }
 
   /* File container */
-  .container-main {
-    width: inherit;
-    overflow:scroll;
-    height: 600px;
+  .file-text {
+    margin-left: 15px; 
+    font-size:11px; 
+    font-family: Tahoma, Verdana, sans-serif;
   }
 
   .file {

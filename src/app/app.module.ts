@@ -11,6 +11,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { LogicModule } from './logic/logic.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -28,8 +30,10 @@ export function initializeApp(appConfig: AppConfig) {
     CoreModule,
     SharedModule,
     LogicModule,
+    MatMenuModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
+    NgbModule, // ToastrModule added
   ],
   providers: [
     AppConfig,

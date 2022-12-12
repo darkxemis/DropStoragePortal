@@ -6,7 +6,7 @@ export class GetFileStorage {
     name: string
     url: string
     extension: string
-    sizeMb: number
+    sizeBytes: number
     userId: Guid
 
     //Parametros opcionales que no son de la API
