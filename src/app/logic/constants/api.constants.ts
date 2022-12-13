@@ -8,7 +8,9 @@ export class ApiConstants {
 
     //User
     public static pathGetUser: string = '/auth/user';
-
+    public static pathResetPasswordEmail: string = '/user/resetpasswordemail';
+    public static pathResetPassword: string = '/user/resetpassword';
+    
     //FileStorage
     public static pathGetAllFiles: string = '/auth/getallfiles';
     public static pathDownloadFile: string = '/auth/downloadfile';

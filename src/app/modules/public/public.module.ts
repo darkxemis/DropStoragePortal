@@ -5,6 +5,7 @@ import { LoginComponent } from "./login/login.component";
 import { PublicRoutingModule } from "./public-routing.module";
 import { PublicComponent } from "./public.component";
 import { ResetPasswordEmailComponent } from "./reset-password-email/reset-password-email.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ResetPasswordEmailComponent } from "./reset-password-email/reset-passwo
     declarations: [
         PublicComponent,
         LoginComponent,
-        ResetPasswordEmailComponent
+        ResetPasswordEmailComponent,
+        ResetPasswordComponent
     ],
     entryComponents: [   
     ]
