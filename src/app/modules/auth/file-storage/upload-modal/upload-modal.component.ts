@@ -97,8 +97,15 @@ export class UploadModalComponent implements OnInit {
       public prepareFilesList(files: Array<any>) {
         for (const item of files) {
           item.progress = 0;
-          if(this.files.filter(x => x.name == item.name).length == 0){
-            this.files.push(item);
+          if(this.files.filter(x => x.name == item.name).length == 0) {
+            console.log(this.formatBytes(item.size));
+            //El fichero no puede ser mayor que 500MB, el valor esta en bytes
+            if(item.size < 500000000) {
+              this.files.push(item);
+            } else {
+              this.toastr.error("The file size can't be more than 500MB", "Error");
+            }
+            
           }
         }
         this.fileDropEl.nativeElement.value = "";

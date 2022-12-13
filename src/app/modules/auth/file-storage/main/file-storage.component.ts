@@ -93,14 +93,17 @@ export class FileStorageComponent implements OnInit {
   }
 
   public async DeleteFilesSelected(): Promise<void> {
-    console.log(this.GetFilesSelected);
-    const isRemoved = await this.fileStorageApiService.DeleteFiles(this.GetFilesSelected);
+    if(this.GetFilesSelected.length != 0) {
+      const isRemoved = await this.fileStorageApiService.DeleteFiles(this.GetFilesSelected);
 
-    if(isRemoved) {
-      this.toastr.success("All files was removed from the system", "Deleted success");
-      this.InitFiles();
+      if(isRemoved) {
+        this.toastr.success("All files was removed from the system", "Deleted success");
+        this.InitFiles();
+      } else {
+        this.toastr.error("Error deleting files", "Error");
+      }
     } else {
-      this.toastr.success("Error deleting files", "Error");
+      this.toastr.error("You must select at least one file", "Error");
     }
   }
 
@@ -127,7 +130,8 @@ export class FileStorageComponent implements OnInit {
     try {
       let user: User = await this.userApiService.GetUserByUserName();
       this.fileStorageList = await this.fileStorageApiService.GetAllFilesByUserId(user.id);
-      await this.loadImg();
+      await this.loadImgAndParameters();
+      this.fileStorageList.forEach
     } catch(error) {
       this.toastr.error("Error to load files", "Error");
     } 
@@ -137,8 +141,12 @@ export class FileStorageComponent implements OnInit {
   readonly imagesTypes: string = "apng, avif, gif, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp";
   readonly MusicTypes: string = "m4a, flac, mp3, wav, wma, aac";
 
-  private async loadImg(): Promise<void> {
+  private async loadImgAndParameters(): Promise<void> {
     this.fileStorageList.forEach(async (file) => {
+
+      //Cambiar size bytes to mb
+      file.sizeMB = this.formatBytes(file.sizeBytes.toString());
+
       if (this.imagesTypes.toLowerCase().includes(file.extension.replace(".", "").toLowerCase())) {
         const blob = new Blob([await this.fileStorageApiService.GetImg([file.id.toString()])]);
         file.urlImg = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob))
@@ -148,5 +156,16 @@ export class FileStorageComponent implements OnInit {
         file.urlImg = "../../../../../assets/img/file-document.png";
       }
     });
+  }
+
+  private formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) {
+      return "0 Bytes";
+    }
+    const k = 1024;
+    const dm = decimals <= 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   }
 }

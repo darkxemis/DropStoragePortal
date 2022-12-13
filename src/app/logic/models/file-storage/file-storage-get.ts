@@ -12,6 +12,7 @@ export class GetFileStorage {
     //Parametros opcionales que no son de la API
     checked: boolean
     urlImg: any
+    sizeMB: string
 
     constructor() {
         this.checked = false;
