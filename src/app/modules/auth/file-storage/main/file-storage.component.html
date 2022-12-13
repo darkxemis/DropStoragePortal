@@ -22,8 +22,8 @@
 <!-- standar material menu -->
 <mat-menu #rightMenu="matMenu">
     <ng-template matMenuContent>
-    <button (click)="open()" mat-menu-item>Update</button>
+    <button (click)="OpenUpdateModal()" mat-menu-item>Update</button>
     <button (click)="Download()" mat-menu-item>Download selected files</button>
-    <button mat-menu-item>Delete selected files</button>
+    <button (click)="DeleteFilesSelected()" mat-menu-item>Delete selected files</button>
     </ng-template>
 </mat-menu>

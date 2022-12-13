@@ -14,4 +14,5 @@ export class ApiConstants {
     public static pathDownloadFile: string = '/auth/downloadfile';
     public static pathUploadFile: string = '/auth/uploadfiles';
     public static pathGetImg: string = '/auth/getImg';
+    public static pathDeleteFiles: string = '/auth/deletefiles';
 }

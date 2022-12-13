@@ -2,7 +2,6 @@ import { ApiService } from "src/app/core/services/api.service";
 import { ApiConstants } from "../constants/api.constants";
 import { Injectable } from "@angular/core";
 import { GetFileStorage } from "../models/file-storage/file-storage-get";
-import { CreateFileStorage } from "../models/file-storage/file-storage-create";
 
 @Injectable()
 export class FileStorageApiService {
@@ -23,5 +22,9 @@ export class FileStorageApiService {
 
     public async GetImg(ids: string[]): Promise<Blob> {
         return await this.apiService.getFile(ApiConstants.pathGetImg, ids);
+    }
+
+    public async DeleteFiles(ids: string[]): Promise<boolean> {
+        return await this.apiService.delete(ApiConstants.pathDeleteFiles, {ids: ids});
     }
 }

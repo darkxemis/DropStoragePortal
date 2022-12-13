@@ -25,6 +25,10 @@ export class FileStorageComponent implements OnInit {
   // reference to the MatMenuTrigger in the DOM
   @ViewChild(MatMenuTrigger, {static: true}) matMenuTrigger: MatMenuTrigger;
 
+  get GetFilesSelected(): string[] {
+    return this.fileStorageList.filter(x => x.checked == true).map(x => x.id.toString());
+  }
+
   constructor(
     public titleService: Title,
     private fileStorageApiService: FileStorageApiService,
@@ -52,13 +56,11 @@ export class FileStorageComponent implements OnInit {
   }
 
   public async Download(): Promise<void> {
-    let idFilesSelected = this.fileStorageList.filter(x => x.checked == true).map(x => x.id.toString());
-
     this.loaderService.show();
 
-    if(idFilesSelected.length != 0) {
+    if(this.GetFilesSelected.length != 0) {
       try {
-        await this.DownloadFiles(idFilesSelected);
+        await this.DownloadFiles(this.GetFilesSelected);
         this.toastr.success("Download success", "Download");
         this.loaderService.hide();
       } catch(error) {
@@ -75,17 +77,32 @@ export class FileStorageComponent implements OnInit {
     // preventDefault avoids to show the visualization of the right-click menu of the browser
     event.preventDefault();
 
-    // we record the mouse position in our object
     this.menuTopLeftPosition.x = event.clientX;
     this.menuTopLeftPosition.y = event.clientY;
 
-    // we open the menu
-    // we pass to the menu the information about our object
-    //this.matMenuTrigger.menuData = {item: item}
-
-    // we open the menu
     this.matMenuTrigger.openMenu();
-  } 
+  }
+
+  public OpenUpdateModal() {
+    const modalRef = this.modal.open(UploadModalComponent);
+
+    modalRef.result.then(() => {
+      this.InitFiles();
+    }, (reason) => {
+    });
+  }
+
+  public async DeleteFilesSelected(): Promise<void> {
+    console.log(this.GetFilesSelected);
+    const isRemoved = await this.fileStorageApiService.DeleteFiles(this.GetFilesSelected);
+
+    if(isRemoved) {
+      this.toastr.success("All files was removed from the system", "Deleted success");
+      this.InitFiles();
+    } else {
+      this.toastr.success("Error deleting files", "Error");
+    }
+  }
 
   private async DownloadFiles(idFilesSelected: string[]): Promise<void> {
     const extension: string = ".zip";
@@ -130,15 +147,6 @@ export class FileStorageComponent implements OnInit {
       } else{
         file.urlImg = "../../../../../assets/img/file-document.png";
       }
-    });
-  }
-
-  public open() {
-    const modalRef = this.modal.open(UploadModalComponent);
-
-    modalRef.result.then(() => {
-      this.InitFiles();
-    }, (reason) => {
     });
   }
 }
