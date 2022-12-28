@@ -17,4 +17,8 @@ export class ApiConstants {
     public static pathUploadFile: string = '/auth/uploadfiles';
     public static pathGetImg: string = '/auth/getImg';
     public static pathDeleteFiles: string = '/auth/deletefiles';
+
+    //ShareLink
+    public static pathPostShareLink: string = '/auth/createsharelink';
+    public static pathDownloadShareLink: string = '/public/downloadsharedfile';
 }

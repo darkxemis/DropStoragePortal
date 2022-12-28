@@ -7,9 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/core/models/user.model';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { FileStorageApiService } from 'src/app/logic/api-services/FileStorageApiService';
+import { ShareLinkApiService } from 'src/app/logic/api-services/ShareLinkApiService';
 import { UserApiService } from 'src/app/logic/api-services/UserApiService';
 import { CreateFileStorage } from 'src/app/logic/models/file-storage/file-storage-create';
 import { GetFileStorage } from 'src/app/logic/models/file-storage/file-storage-get';
+import { CreateShareLink } from 'src/app/logic/models/ShareLink/share-link-create';
+import { GetShareLink } from 'src/app/logic/models/ShareLink/share-link-get';
+import { ShareLinkModalComponent } from '../share-link-modal/share-link.component';
 import { UploadModalComponent } from '../upload-modal/upload-modal.component';
 
 @Component({
@@ -32,6 +36,7 @@ export class FileStorageComponent implements OnInit {
   constructor(
     public titleService: Title,
     private fileStorageApiService: FileStorageApiService,
+    private shareLinkApiService: ShareLinkApiService,
     private toastr: ToastrService,
     private loaderService: LoaderService,
     private userApiService: UserApiService,
@@ -105,6 +110,24 @@ export class FileStorageComponent implements OnInit {
     } else {
       this.toastr.error("You must select at least one file", "Error");
     }
+  }
+
+  public async ShareFiles(): Promise<void> {
+    let createShareLink: CreateShareLink = new CreateShareLink();
+    createShareLink.idsFileStorage = this.GetFilesSelected;
+
+    const modalRef = this.modal.open(ShareLinkModalComponent);
+
+    modalRef.result.then(async (emails: string[]) => {
+      if(emails && emails.length > 0) { 
+        createShareLink.emails = emails;
+        this.loaderService.show();
+        const shareLink: GetShareLink = await this.shareLinkApiService.CreateShareLink(createShareLink);
+        this.loaderService.hide();
+        this.toastr.success("Shared link correct", "Success");
+      }
+    }, (reason) => {
+    });
   }
 
   private async DownloadFiles(idFilesSelected: string[]): Promise<void> {

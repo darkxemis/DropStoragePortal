@@ -1,0 +1,18 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h1 style="color: #6c757d;" class="modal-title">Share files</h1>
+  
+      <button (click)="onClickCloseModal()" type="button" class="btn-close" aria-label="Close"></button>
+
+    </div>
+    <div class="modal-b">
+        <div style="height: 100%; margin: auto; display: block;">
+            <p style="width: 100%; color: orange;">* You can add multiple emails separated with ;</p>
+            <textarea [(ngModel)]="emails" style="width: 100%;" role="textbox" rows="10"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="onSendModal()" type="button" class="btn btn-primary" data-bs-dismiss="modal">send</button>
+        <button (click)="onClickCloseModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+    </div>
+</div>

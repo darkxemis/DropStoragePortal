@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { throwIfAlreadyLoaded } from "../core/guards/module-import.guard";
 import { FileStorageApiService } from "./api-services/FileStorageApiService";
+import { ShareLinkApiService } from "./api-services/ShareLinkApiService";
 import { UserApiService } from "./api-services/UserApiService";
 
 @NgModule({
@@ -12,7 +13,8 @@ import { UserApiService } from "./api-services/UserApiService";
     ],
     providers: [
         FileStorageApiService,
-        UserApiService
+        UserApiService,
+        ShareLinkApiService
     ]
 })
 export class LogicModule { 

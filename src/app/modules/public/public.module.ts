@@ -6,6 +6,7 @@ import { PublicRoutingModule } from "./public-routing.module";
 import { PublicComponent } from "./public.component";
 import { ResetPasswordEmailComponent } from "./reset-password-email/reset-password-email.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { SharedLinkFileComponent } from "./shared-link/download-share-file.component";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ResetPasswordComponent } from "./reset-password/reset-password.componen
         PublicComponent,
         LoginComponent,
         ResetPasswordEmailComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        SharedLinkFileComponent
     ],
     entryComponents: [   
     ]

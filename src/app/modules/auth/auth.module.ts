@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UploadModalComponent } from './file-storage/upload-modal/upload-modal.component';
+import { ShareLinkModalComponent } from './file-storage/share-link-modal/share-link.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { UploadModalComponent } from './file-storage/upload-modal/upload-modal.c
   declarations: [
     AuthComponent,
     FileStorageComponent,
-    UploadModalComponent
+    UploadModalComponent,
+    ShareLinkModalComponent
   ]
 })
 export class AuthModule { }
