@@ -163,6 +163,9 @@
     margin: 20px;
     cursor: pointer;
     padding: 5px; 
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .file-selected {
@@ -209,4 +212,39 @@
     font-size: 20px;
     font-weight: 600;
     color: #38424c;
+  }
+
+  .file-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* HEATHER */
+  .head {
+    padding: 16px 32px;
+    text-align: center;
+  }
+
+  .head-img {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .img-content {
+    width: auto;
+    width: 64px;
+    gap: 16px !important;
+    display: flex;
+    flex-direction: column;
+  } 
+
+  .border-dropdown {
+    border-radius: 50%;
+    border: 3px solid #0d6efd; 
+  }
+
+  #dropdownUser::after {
+    content: "";
+    display: none;
   }

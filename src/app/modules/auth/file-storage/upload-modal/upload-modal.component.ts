@@ -50,9 +50,9 @@ export class UploadModalComponent implements OnInit {
           if(!isError){
             this.toastr.success("Files upload success", "Upload");
           }
-    
-          this.loaderService.hide();
         }
+        
+        this.loaderService.hide();
       }
     
       public onFileDropped($event) {
