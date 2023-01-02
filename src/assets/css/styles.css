@@ -160,12 +160,16 @@
   }
 
   .file {
-    margin: 20px;
     cursor: pointer;
-    padding: 5px; 
     align-items: center;
     display: flex;
     flex-direction: column;
+    width: 100%;
+  }
+
+  .files-for {
+    max-width: 208px;
+    min-width: 203px;
   }
 
   .file-selected {
@@ -217,7 +221,7 @@
   .file-content {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 32px;
   }
 
   /* HEATHER */
@@ -228,7 +232,7 @@
 
   .head-img {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
   }
 
   .img-content {
@@ -236,7 +240,8 @@
     width: 64px;
     gap: 16px !important;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    align-items: center;
   } 
 
   .border-dropdown {

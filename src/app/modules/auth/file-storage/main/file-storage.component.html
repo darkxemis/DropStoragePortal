@@ -1,6 +1,6 @@
-<div (contextmenu)="onRightClick($event)" class="container" style="height: 100vh;">
+<div (contextmenu)="onRightClick($event)" class="container" style="height: 100vh; padding: 32px;">
     <div class="file-content">
-        <div *ngFor="let file of fileStorageList; let i = index" [attr.data-index]="i" class="" (click)="ClickCheckBoxDowloadFile(file)" data-toggle="tooltip" [title]=" file.sizeMB + '&#013;' + file.createTime">
+        <div *ngFor="let file of fileStorageList; let i = index" [attr.data-index]="i" class="files-for" (click)="ClickCheckBoxDowloadFile(file)" data-toggle="tooltip" [title]=" file.sizeMB + '&#013;' + file.createTime">
             <div class="thumbnail file" [ngClass]="file.checked ? 'file-selected' : ''" >
                 <img [src]="file.urlImg" alt="Fjords" style="width: 128px;">
                 <div class="caption">
