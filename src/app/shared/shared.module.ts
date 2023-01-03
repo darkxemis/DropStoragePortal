@@ -6,13 +6,15 @@ import { ProgressComponent } from './progress/progress.component';
 import { HeaderComponent } from './components/layoud/header/header.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditUserModalComponent } from './components/modals/edit-user.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
     DndDirective,
     ProgressComponent,
-    HeaderComponent
+    HeaderComponent,
+    EditUserModalComponent
   ],
   imports: [
     NgbModule,
@@ -23,7 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     LoaderComponent,
     ProgressComponent,
-    HeaderComponent
+    HeaderComponent,
+    EditUserModalComponent
 ],
   entryComponents: [
   ]

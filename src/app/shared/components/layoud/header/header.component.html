@@ -3,20 +3,19 @@
 
       <div ngbDropdown class="d-inline-block">
           <a class="nav-link text-white dropdown-toggle img-content" role="button" id="dropdownUser" ngbDropdownToggle>
-              <img class="border-dropdown" src="../../../../../assets/img/image-drop.jpg" alt="Fjords" width="100%" height="64px">
-              <p>Josemi</p>
+              <img class="border-dropdown img" [src]="imgUser" alt="Fjords">
+              <p>{{userName}}</p>
           </a>
           
           <div ngbDropdownMenu aria-labelledby="dropdown1">
               <!-- items as buttons -->
-              <button ngbDropdownItem>Button (enabled)</button>
-              <button ngbDropdownItem [disabled]="true">Button (disabled, not focusable)</button>
-              <button ngbDropdownItem [class.disabled]="true" aria-disabled="true">Button (disabled, focusable)</button>
+              <button (click)="OnEditUser()" ngbDropdownItem>Edit user</button>
+              <button (click)="OnClickLogOff()" ngbDropdownItem>Log off</button>
       
               <!-- items as links -->
-              <a href="#" ngbDropdownItem>Link (enabled)</a>
+              <!--<a href="#" ngbDropdownItem>Link (enabled)</a>
               <a href="#" ngbDropdownItem [disabled]="true">Link (disabled, not focusable)</a>
-              <a href="#" ngbDropdownItem [class.disabled]="true" aria-disabled="true">Link (disabled, focusable)</a>
+              <a href="#" ngbDropdownItem [class.disabled]="true" aria-disabled="true">Link (disabled, focusable)</a>-->
           </div>
       </div>
 

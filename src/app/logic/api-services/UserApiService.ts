@@ -24,4 +24,12 @@ export class UserApiService {
     public async ResetPassword(resetPassword: ResetPassword): Promise<boolean> {
         return await this.apiService.post(ApiConstants.pathResetPassword, resetPassword);
     }
+
+    public async GetImgUser(id: string): Promise<Blob> {
+        return await this.apiService.getUserImg(ApiConstants.pathImgUser, {id: id});
+    }
+
+    public async UploadImgUser(file: any): Promise<Blob> {
+        return await this.apiService.uploadFile(ApiConstants.pathUploadImg, file);
+    }
 }

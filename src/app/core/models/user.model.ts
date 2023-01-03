@@ -1,11 +1,21 @@
 export class User {
     id: string;
-    userName: string;
-    email: string;
+    login: string;
+    name: string;
+    lastName: string;
+    password: string;
+    address: string;
+    profilePhotoUrl: string;
+    directoryHome: string;
 
     constructor() {
         this.id = "";
-        this.userName = "";
-        this.email = "";
+        this.login = "";
+        this.name = "";
+        this.lastName = "";
+        this.password = "";
+        this.address = "";
+        this.profilePhotoUrl = "";
+        this.directoryHome = "";
     }
 }

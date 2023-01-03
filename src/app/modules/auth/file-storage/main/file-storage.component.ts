@@ -172,7 +172,7 @@ export class FileStorageComponent implements OnInit {
 
       if (this.imagesTypes.toLowerCase().includes(file.extension.replace(".", "").toLowerCase())) {
         const blob = new Blob([await this.fileStorageApiService.GetImg([file.id.toString()])]);
-        file.urlImg = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob))
+        file.urlImg = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
       } else if (this.MusicTypes.toLowerCase().includes(file.extension.replace(".", "").toLowerCase())){
         file.urlImg = "../../../../../assets/img/music-file.png";
       } else{

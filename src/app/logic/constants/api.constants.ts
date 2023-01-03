@@ -10,6 +10,8 @@ export class ApiConstants {
     public static pathGetUser: string = '/auth/user';
     public static pathResetPasswordEmail: string = '/user/resetpasswordemail';
     public static pathResetPassword: string = '/user/resetpassword';
+    public static pathImgUser: string = '/user/getImg';
+    public static pathUploadImg: string = '/user/uploadimg';
     
     //FileStorage
     public static pathGetAllFiles: string = '/auth/getallfiles';

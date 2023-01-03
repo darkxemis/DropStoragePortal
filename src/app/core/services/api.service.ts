@@ -149,6 +149,17 @@ export class ApiService {
       .pipe(catchError(this.formatErrors)).toPromise();
   }
 
+  public async getUserImg(path: string, params: object = {}): Promise<any> {
+    const parameters: HttpParams = this.createHttpParams(params);
+    return await this.http.get(`${AppConfig.settings.webApi.url}${path}`,
+      {
+        params: parameters,
+        headers: this.jsonHeaders(),
+        responseType: 'blob'
+      })
+      .pipe(catchError(this.formatErrors)).toPromise();
+  }
+
   async uploadFile(path: string, file: any) : Promise<any>{
     const formData = new FormData();
     const fileToUpload = file as File;
