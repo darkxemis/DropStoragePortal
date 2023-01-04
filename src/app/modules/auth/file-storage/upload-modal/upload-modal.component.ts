@@ -16,7 +16,7 @@ export class UploadModalComponent implements OnInit {
 
     extensionFileAllowed = `apng, avif, gif, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp, 
     MP4, MOV, WMV, AVI, FLV, MKV, AVCHD, WEBM
-    doc, docx, odt, pdf, rtf, tex, txt, wpd, xlsx, xlsm, xlsb, xltx, xltm, xls, xlt, xls, xml, xml, xlam, xla, xlw, xlr, json
+    doc, docx, odt, pdf, rtf, tex, txt, wpd, xlsx, xlsm, xlsb, xltx, xltm, xls, xlt, xls, xml, xml, xlam, xla, xlw, xlr, json, zip
     M4A, FLAC, MP3, WAV, WMA, AAC`
 
     constructor(
@@ -98,7 +98,6 @@ export class UploadModalComponent implements OnInit {
         for (const item of files) {
           item.progress = 0;
           if(this.files.filter(x => x.name == item.name).length == 0) {
-            console.log(this.formatBytes(item.size));
             //El fichero no puede ser mayor que 500MB, el valor esta en bytes
             if(item.size < 500000000) {
               this.files.push(item);
@@ -137,6 +136,5 @@ export class UploadModalComponent implements OnInit {
     
         return true;
       }
-    
-      //End upload
+
 }

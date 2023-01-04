@@ -8,7 +8,7 @@
     <div class="modal-body">
 
         <div class="containerFile" appDnd (fileDropped)="onFileDropped($event)">
-            <input class="cursor-pointer" type="file" accept="audio/*, video/*, image/*, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
+            <input class="cursor-pointer" type="file" accept="audio/*, video/*, image/*, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, application/zip" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
             <img class="cursor-pointer" src="assets/img/dnd/ic-upload-file.svg" alt="">
             <h3>Drag and drop file here</h3>
             <label for="fileDropRef">Browse for file</label>
