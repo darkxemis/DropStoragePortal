@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { lastValueFrom, throwError } from 'rxjs';
 import { ApiConstants } from '../../logic/constants/api.constants';
 import { AppConfig } from '../../app.configuration';
 
@@ -45,16 +45,16 @@ export class ApiService {
       Accept: 'application/json',
     };
   }
-  
+
   public async authToken(username: string, password: string): Promise<any> {
     const path = ApiConstants.pathAuthToken;
     const data = 'username=' + username + '&password=' + password;
-    
-    return await this.http.post(
+
+    return await lastValueFrom(this.http.post(
       `${AppConfig.settings.webApi.url}${path}`,
       data,
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-    ).pipe(catchError(this.formatErrors)).toPromise();
+    ).pipe(catchError(this.formatErrors)));
   }
 
   /*public async authRefreshToken(token: string, refreshToken: string): Promise<any> {
@@ -116,7 +116,7 @@ export class ApiService {
     if (typeof body !== 'object' ){
       return body;
     }
-    
+
     let result: Array<any> | object = null;
     if (Array.isArray(body)){
       result = [];
@@ -124,7 +124,7 @@ export class ApiService {
     else {
       result = {};
     }
-    
+
     for (const key of Object.keys(body)) {
       const value = body[key];
       if (typeof value === 'object') {
@@ -136,14 +136,14 @@ export class ApiService {
     }
     return result;
   }
-  
+
   public async getFile(path: string, body: object = {}): Promise<any> {
     //const parameters: HttpParams = this.createHttpParams(params);
     return await this.http.post(`${AppConfig.settings.webApi.url}${path}`, this.stringify(body),
         {
           headers: this.jsonHeaders(),
           //params: parameters,
-         
+
           responseType: 'blob'
         })
       .pipe(catchError(this.formatErrors)).toPromise();
@@ -166,5 +166,5 @@ export class ApiService {
     formData.append('file', fileToUpload, fileToUpload.name);
     return await this.http.post(`${AppConfig.settings.webApi.url}${path}`, formData).pipe(catchError(this.formatErrors)).toPromise();
   }
-  
+
 }
